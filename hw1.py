@@ -50,7 +50,7 @@ class Portfolio(object):
     
     def buyMutualFund(self, share, mftype): 
         if share*mftype.price > self.cash:
-            raise ValueError (f"Could not complete the operation, since the {share*mftype.price} is bigger than your current amount, {self.cash}. You have insufficient funds.")
+            raise ValueError (f"Could not complete the operation, since the {share*mftype.price} is larger than your current amount, {self.cash}. You have insufficient funds.")
         
         if mftype.symbol in self.mutualfund: 
             self.mutualfund[mftype.symbol] + share  
