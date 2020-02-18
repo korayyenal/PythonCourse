@@ -5,6 +5,7 @@ class Portfolio(object):
         self.cash = cash
         self.stock = {}
         self.mutualfund = {}
+        self.bond = {}
         self.history = []
         
     def addCash(self,cash):
