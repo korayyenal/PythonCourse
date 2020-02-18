@@ -19,6 +19,9 @@ class Portfolio(object):
         
     
     def buyStock(self, share, stocktype):
+        
+        if isinstance(share, int) = False :
+                raise TypeError ("Can't do the operation. Please insert a whole amount.")     
         if share*stocktype.price > self.cash:
             raise ValueError (f"Could not complete the operation, since the {share*stocktype.price} is bigger than your current amount, {self.cash}. You have insufficient funds.")
         
@@ -31,8 +34,11 @@ class Portfolio(object):
             self.cash = self.cash - share*stocktype.price
             self.history.append(f"{share*stocktype.price} of cash was used to buy stocks\ncurrent cash balance: {self.cash}")
             self.history.append(f"your current stock of type {stocktype}:", self.stock[stocktype.symbol], stocktype.symbol)
-    
+     
+
     def sellStock(self, share, stocktype):
+        if isinstance(share, int) = False :
+                raise TypeError ("Can't do the operation. Please insert a whole amount.")     
         if share > self.stock[stocktype.symbol]:
             raise ValueError("not enough stocks to sell")
         
@@ -49,6 +55,9 @@ class Portfolio(object):
     
     
     def buyMutualFund(self, share, mftype): 
+        
+        if isinstance(share, int) = True :
+                raise TypeError ("Can't do the operation. Please insert a fractional amount.")     
         if share*mftype.price > self.cash:
             raise ValueError (f"Could not complete the operation, since the {share*mftype.price} is larger than your current amount, {self.cash}. You have insufficient funds.")
         
@@ -63,6 +72,9 @@ class Portfolio(object):
         
     
     def sellMutualFund(self, share, mftype):
+        
+        if isinstance(share, int) = True :
+                raise TypeError ("Can't do the operation. Please insert a fractional amount.")
         if share > self.mutualfund[mftype.symbol]:
             raise ValueError("not enough mutual funds to sell")
         if mftype.symbol in self.mutualfund and share < self.mutualfund[mftype.symbol]:
@@ -78,13 +90,20 @@ class Portfolio(object):
     def printport(self):
         print("--------------------------")
         print("Your current portfolio:")
-        print("->cash:", self.cash)
-        print("->stock:", self.stock)
-        print("->mutual fund: \n", self.mutualfund )
+        print("-cash:", self.cash)
+        print("-stock:", self.stock)
+        print("-mutual fund: \n", self.mutualfund )
         print("--------------------------")
-
         
-class Asset():
+    def history(self):
+        text = '\n'.join(self.history)
+        print("----------")
+        print("Your transactions history:")
+        print(text)
+        print("----------")
+
+ #shows inheritance and bond addition       
+class Asset(object):
     def __init__(self, price, symbol):
         self.assettype = ""
         self.price = price
@@ -98,13 +117,29 @@ class Stock(Asset):
         self.assettype = "Stock"
     
 class MutualFund(Asset):
-    def __init__(self, price, symbol):
+    def __init__(self, symbol):
         Asset.__init__(self, 1, symbol)
         self.assettype = "MutualFund"
         self.fractional = True
         
 class Bond(Asset):
     def __init__(self, price):
-        Asset.__init__(self, price, symbol)
+        Asset.__init__(self, price, interest, symbol)
         self.assettype = "Bond"
-       
+        self.interest = interest
+   
+def trial():
+    portfolio=Portfolio()
+    portfolio.addCash(1000)
+    portfolio.withdrawCash(50)
+    s = Stock(20,"HFH")
+    portfolio.buyStock(5, s)
+    portfolio.sellStock(2, s)
+    mf1 = MutualFund("BRT")
+    mf2 = MutualFund("GHT")
+    portfolio.buyMutualFund(10.3, mf1)
+    portfolio.buyMutualFund(2, mf2)
+    portfolio.sellMutualFund("BRT", 4)
+    portfolio.sellMutualFund("GHT", 2)
+    portfolio.printport()
+    portfolio.history()
