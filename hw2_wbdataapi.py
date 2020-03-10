@@ -5,6 +5,9 @@ import wbdata
 
 def readdata():
 
+  wbdata.get_source()
+  wbdata.get_indicator(source=2)
+  
   countries = [i['id'] for i in wbdata.get_country(incomelevel="HIC", display=False)]
 
   indicator1 = {"NY.GDP.PCAP.PP.KD": "gdppc", "IP.JRN.ARTC.SC": "Scientific_and_technical_journal_articles"}
