@@ -1,9 +1,7 @@
 import csv
-from bs4 import BeautifulSoup
-import urllib 
 import pandas as pd
+import numpy as np
 import wbdata
-from hw2function import linearregression
 
 def readdata():
 
