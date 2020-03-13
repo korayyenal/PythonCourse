@@ -2,6 +2,7 @@ import sys
 import pandas as pd
 import numpy as np
 from scipy import stats
+import readdata
 
 def linearregression(x,y):
   dfmerge = pd.read_csv('dfmerge.csv')
