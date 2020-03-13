@@ -4,10 +4,7 @@ import numpy as np
 from scipy import stats
 import readdata
 
-def linearregression(x,y):
-  dfmerge = pd.read_csv('dfmerge.csv')
-  x=dfmerge[['Scientific_And_Technical_Journal_Articles','Literacy_Rate']]
-  y=dfmerge['GDPpc']
+def linearregression(X,x1,x2,y):
   
   y= np.log(y)
   
