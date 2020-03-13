@@ -17,22 +17,22 @@ conf_int = np.array([[8751.561817, 11164.074196],
                      [-0.249426, 0.091305]])
     
     def Singularityerrortest(self):
-        X_ = np.copy(X.T)
-        X_ = np.array([[0.5, 2.1], 
+        XC = np.copy(X.T)
+        XC = np.array([[0.5, 2.1], 
                        [0.5, 2.1], 
                        [0.5, 2.1], 
                        [0.5, 2.1], 
                        [0.5, 2.1]])
 
-        self.assertRaises(Exception, rg.linreg, X_, y)
+        self.assertRaises(Exception, reg.linreg, XC, y)
                      
     def TypeErrortest(self):
 
-        self.assertRaises(TypeError, rg.linreg, None, y)
-        self.assertRaises(TypeError, rg.linreg, X, None)
+        self.assertRaises(TypeError, reg.linreg, None, y)
+        self.assertRaises(TypeError, reg.linreg, X, None)
         
         y_ = [0, 0, 0, 0, 0]
-        self.assertRaises(TypeError, rg.linreg, X, y_)
+        self.assertRaises(TypeError, reg.linreg, X, y_)
 
     def Validitytest(self):
         
