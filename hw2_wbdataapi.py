@@ -14,17 +14,15 @@ def readdata():
   y = wbdata.get_data("NY.GDP.PCAP.PP.KD", data_date = data_date, country = countries, pandas = True)
   data = pd.concat([x1, x2, y], axis = 1)
   data = data.dropna(axis=0, how='all')
-  
-  X = pd.concat([x1,x2], axis = 1)
-  X = X.dropna(axis=0, how='all')
 
   data.columns = ["Scientific and technical journal articles", "Access to electricity, rural","GDPpc"]
-  X.columns = ["Scientific and technical journal articles", "Access to electricity, rural"]
 
   x1 = data["Scientific and technical journal articles"].tolist()
   x2 = data["Access to electricity, rural"].tolist()
+  X = np.hstack([x1, x2]).reshape(103,2)
   y = data["GDPpc"].tolist()
+  y = np.array(y).reshape(103,1)
   
   data.to_csv('data.csv')
   
-  return (X,x1,x2,y)
+  return (X,y)
