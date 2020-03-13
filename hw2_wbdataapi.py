@@ -19,7 +19,7 @@ def readdata():
   X = X.dropna(axis=0, how='all')
 
   data.columns = ["Scientific and technical journal articles", "Access to electricity, rural","GDPpc"]
-  X.columns = ["Scientific and technical journal articles", "Access to electricity, rural","GDPpc"]
+  X.columns = ["Scientific and technical journal articles", "Access to electricity, rural"]
 
   x1 = data["Scientific and technical journal articles"].tolist()
   x2 = data["Access to electricity, rural"].tolist()
