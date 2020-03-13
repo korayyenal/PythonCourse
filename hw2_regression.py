@@ -48,10 +48,10 @@ def linearregression(X,y):
    q_err = t_stat * standard_err
    conf = np.hstack([B - q_err, B + q_err])
     
-   table=np.append(B, stdcoefff, axis=1)
-   table=np.append(table, confidence, axis=1)
+   table=np.append(B, standard_err, axis=1)
+   table=np.append(table, conf, axis=1)
     
    summarytable = pd.DataFrame(table,index=['Bo','B1','B2'],columns=['Estimates', 'Standard Errors', 'Lower CI', 'Upper CI'])
    print(summarytable)
   
-   return B, standard_err, conf
+   return standard_err, B, conf
