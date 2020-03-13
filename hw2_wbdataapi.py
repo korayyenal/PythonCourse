@@ -1,29 +1,24 @@
-import csv
+import datetime
 import pandas as pd
-import numpy as np
 import wbdata
 
 def readdata():
 
   wbdata.get_source()
   wbdata.get_indicator(source=2)
+  data_date = datetime.datetime(2015, 1, 1)
+  countries = [i['id'] for i in wbdata.get_country(incomelevel = "MIC", display=False)]
   
-  countries = [i['id'] for i in wbdata.get_country(incomelevel="HIC", display=False)]
+  x1 = wbdata.get_data("IP.JRN.ARTC.SC", data_date = data_date, country = countries , pandas = True)
+  x2 = wbdata.get_data("EG.ELC.ACCS.RU.ZS", data_date = data_date, country = countries, pandas = True)
+  y = wbdata.get_data("NY.GDP.PCAP.PP.KD", data_date = data_date, country = countries, pandas = True)
+  data = pd.concat([x1, x2, y], axis = 1)
 
-  indicator1 = {"NY.GDP.PCAP.PP.KD": "gdppc", "IP.JRN.ARTC.SC": "Scientific_and_technical_journal_articles"}
-  indicator2 = {"NY.GDP.PCAP.PP.KD": "gdppc", "SE.ADT.1524.LT.FM.ZS": "Literacyrate"}
+  
+  data.columns = ["Scientific and technical journal articles", "Access to electricity, rural","GDPpc"]
 
-  df = wbdata.get_dataframe(indicator1, country=countries, convert_date=True)
-  df2=  wbdata.get_dataframe(indicator2, country=countries, convert_date=True)
-
-  df = df.dropna()
-  df2 = df2.dropna()
-
-  df["uniqid"]=(df.country +df.date)
-  df2["uniqid"]=(df2.country +df2.date)
-
-  dfmerge = df.merge(df2,on="uniqid")
-  dfmerge = dfmerge.drop(['country_y','date_y','gdppc_y'], axis=1)
-  dfmerge = dfmerge.rename(columns = {"uniqid":"Unique_ID","date_x": "Date","country_x": "Country","gdppc_x": "GDPpc","Scientific_and_technical_journal_articles": "Scientific_And_Technical_Journal_Articles","Literacyrate": "Literacy_Rate"})
-
-  dfmerge.to_csv("dfmerge.csv")
+  x1 = data["Scientific and technical journal articles"].tolist()
+  x2 = data["Access to electricity, rural"].tolist()
+  y = data["GDPpc"].tolist()
+  
+  return (x1,x2,y)
