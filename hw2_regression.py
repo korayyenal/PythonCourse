@@ -55,9 +55,3 @@ def linearregression(X,y):
    print(summarytable)
   
    return B, standard_err, conf
-  
-
-  
-
-  
-  
