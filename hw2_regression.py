@@ -1,8 +1,9 @@
+import sys
 import pandas as pd
 import numpy as np
 from scipy import stats
 
-def linearregression():
+def linearregression(x,y):
   dfmerge = pd.read_csv('dfmerge.csv')
   x=dfmerge[['Scientific_And_Technical_Journal_Articles','Literacy_Rate']]
   y=dfmerge['GDPpc']
