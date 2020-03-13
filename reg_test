@@ -1,0 +1,57 @@
+import unittest
+import linearregression as reg
+import numpy as np
+
+X = np.array([[1, 2.5], 
+          [0.7, 2.2], 
+          [0.4, 1.05], 
+          [0.4, 3.2], 
+          [0.3,5]])
+
+
+
+beta     = np.array([[9957.818006],[-0.001701 ],[-0.079060]])
+std_err  = np.array([[608.000759],[0.014131],[0.085871]])
+conf_int = np.array([[8751.561817, 11164.074196],
+                     [-0.029737, 0.026334],
+                     [-0.249426, 0.091305]])
+    
+    def Singularityerrortest(self):
+        X_ = np.copy(X.T)
+        X_ = np.array([[0.5, 2.1], 
+                       [0.5, 2.1], 
+                       [0.5, 2.1], 
+                       [0.5, 2.1], 
+                       [0.5, 2.1]])
+
+        self.assertRaises(Exception, rg.linreg, X_, y)
+                     
+    def TypeErrortest(self):
+
+        self.assertRaises(TypeError, rg.linreg, None, y)
+        self.assertRaises(TypeError, rg.linreg, X, None)
+        
+        y_ = [0, 0, 0, 0, 0]
+        self.assertRaises(TypeError, rg.linreg, X, y_)
+
+    def Validitytest(self):
+        
+        coef, SE, CI = rg.linreg(X,y)
+
+        coef_ = np.round(coef, 3)
+        beta_ = np.round(beta, 3)
+
+        SE_ = np.round(SE, 3)
+        std_err_ = np.round(std_err, 3)
+
+        CI_ = np.round(CI, 3)
+        conf_int_ = np.round(conf_int, 3)
+
+        self.assertTrue(np.allclose(coef_, beta_))
+        self.assertTrue(np.allclose(SE_, std_err_))
+        self.assertTrue(np.allclose(CI_, conf_int_))
+                     
+
+
+if __name__ == "__main__":
+    unittest.main()
